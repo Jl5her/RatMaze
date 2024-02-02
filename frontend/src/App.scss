@@ -18,11 +18,11 @@
   &.east {
     border-right: 2px solid var(--black);
   }
-  
+
   &.west {
     border-left: 2px solid var(--black);
   }
-  
+
   &.south {
     border-bottom: 2px solid var(--black);
   }
@@ -34,4 +34,6 @@
   width: 12px;
   height: 12px;
   transform: translateX(-50%) translateY(-50%);
+
+  transition: transform 2s;
 }
