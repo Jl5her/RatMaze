@@ -27,8 +27,6 @@ export class Maze {
     this.randomRowNumbers = Utils.shuffleArray([...Array(this.nRow).keys()]);
     this.randomColNumbers = Utils.shuffleArray([...Array(this.nCol).keys()]);
     this.huntAndKill();
-    this.cells[0][0].westEdge = false;
-    this.cells[nRow - 1][nCol - 1].eastEdge = false;
   }
   get firstCell() {
     return this.cells[0][0];
