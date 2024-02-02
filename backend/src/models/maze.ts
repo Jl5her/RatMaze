@@ -1,19 +1,19 @@
-import { Cell } from './cell';
+import { Cell } from "./cell";
 
-/**
- * A rectangle maze generated based on "hunt-and-kill" algorithm.
- */
 export class Maze {
   public readonly cells: Cell[][] = [];
   private readonly randomRowNumbers: number[];
   private readonly randomColNumbers: number[];
-
   /**
    * Create a maze with <row> &times; <col> cells.
    * @param nRow number of rows
    * @param nCol number of columns
+   *
    */
   constructor(public nRow: number, public nCol: number) {
+    this.nRow = nRow;
+    this.nCol = nCol;
+    this.cells = [];
     // initialize cells
     for (let i = 0; i < nRow; i++) {
       this.cells[i] = [];
@@ -22,78 +22,70 @@ export class Maze {
       }
     }
     // populate cell neighbors (an optimization)
-    this.cells.forEach(row => row.forEach(c => this.mapNeighbors(c)));
-
+    this.cells.forEach((row) => row.forEach((c) => this.mapNeighbors(c)));
     // generate maze
     this.randomRowNumbers = Utils.shuffleArray([...Array(this.nRow).keys()]);
     this.randomColNumbers = Utils.shuffleArray([...Array(this.nCol).keys()]);
     this.huntAndKill();
+    this.cells[0][0].westEdge = false;
+    this.cells[nRow - 1][nCol - 1].eastEdge = false;
   }
-
-  get firstCell(): Cell {
+  get firstCell() {
     return this.cells[0][0];
   }
-
-  get lastCell(): Cell {
+  get lastCell() {
     return this.cells[this.nRow - 1][this.nCol - 1];
   }
-
-  get randomCell(): Cell {
+  get randomCell() {
     return this.cells[Utils.random(this.nRow)][Utils.random(this.nCol)];
   }
-
   /**
    * traverse the maze using depth-first algorithm
    */
-  findPath(): Cell[] {
-    this.cells.forEach(x => x.forEach(c => (c.traversed = false)));
-    const path: Cell[] = [this.firstCell];
-
+  findPath() {
+    this.cells.forEach((x) => x.forEach((c) => (c.traversed = false)));
+    const path = [this.firstCell];
     while (1) {
       let current = path[0];
       current.traversed = true;
-
       if (current.equals(this.lastCell)) {
         break;
       }
-
       const traversableNeighbors = current.neighbors
-        .filter(c => c.isConnectedTo(current))
-        .filter(c => !c.traversed);
+        .filter((c) => c.isConnectedTo(current))
+        .filter((c) => !c.traversed);
       if (traversableNeighbors.length) {
         path.unshift(traversableNeighbors[0]);
       } else {
         path.splice(0, 1);
       }
     }
-
     return path.reverse();
   }
-
-  private huntAndKill() {
+  huntAndKill() {
     let current: Cell | undefined = this.randomCell; // hunt-and-kill starts from a random Cell
     while (current) {
       this.kill(current);
       current = this.hunt();
     }
   }
-  private kill(current: Cell | undefined) {
+  kill(current: Cell | undefined) {
     while (current) {
-      const next = current.neighbors.find(c => !c.visited);
+      const next = current.neighbors.find((c) => !c.visited);
       if (next) {
         current.connectTo(next);
       }
       current = next;
     }
   }
-  private hunt(): Cell | undefined {
+  hunt(): Cell | undefined {
     for (let huntRow of this.randomRowNumbers) {
       for (let huntColumn of this.randomColNumbers) {
         const cell = this.cells[huntRow][huntColumn];
         if (cell.visited) {
           continue;
         }
-        const next = cell.neighbors.find(c => c.visited);
+        const next = cell.neighbors.find((c) => c.visited);
         if (next) {
           cell.connectTo(next);
           return cell;
@@ -101,8 +93,7 @@ export class Maze {
       }
     }
   }
-
-  private mapNeighbors(cell: Cell): void {
+  mapNeighbors(cell: Cell): void{
     if (cell.row - 1 >= 0) {
       cell.neighbors.push(this.cells[cell.row - 1][cell.col]);
     }
@@ -118,7 +109,6 @@ export class Maze {
     cell.neighbors = Utils.shuffleArray(cell.neighbors);
   }
 }
-
 class Utils {
   /**
    * The de-facto unbiased shuffle algorithm is the Fisher-Yates (aka Knuth) Shuffle.
@@ -130,7 +120,6 @@ class Utils {
     }
     return array;
   }
-
   /**
    * Generate a random index within a number `n`
    */

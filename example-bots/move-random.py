@@ -8,4 +8,4 @@ while True:
 
     print(f"moving {random_move}")
     requests.post('https://api-ratmaze.jackp.me/move', json={'direction': random_move}, headers={'Content-Type': 'application/json', 'Authorization': f"Bearer python-bot"})
-    time.sleep(.2)
+    time.sleep(.5)

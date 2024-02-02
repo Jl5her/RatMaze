@@ -39,8 +39,7 @@ export class Cell {
   constructor(
     public readonly row: number = 0,
     public readonly col: number = 0
-  ) {
-  }
+  ) {}
 
   toJSON() {
     return {
@@ -48,7 +47,7 @@ export class Cell {
       eastEdge: this.eastEdge,
       southEdge: this.southEdge,
       westEdge: this.westEdge,
-    }
+    };
   }
 
   connectTo(another: Cell) {
