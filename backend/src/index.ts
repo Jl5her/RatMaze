@@ -91,7 +91,7 @@ app.post('/move', [body('direction').isIn(['up', 'down', 'left', 'right'])],
       client.send(JSON.stringify({data: player}))
     }) 
 
-    res.send({ current })
+    res.send(current)
   })
 
 app.disable('x-powered-by')
