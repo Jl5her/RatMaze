@@ -33,7 +33,7 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
 
-let maze = new Maze(50, 50)
+const maze = new Maze(50, 50)
 console.log('Generate maze')
 
 const players: Player[] = [];
@@ -43,7 +43,6 @@ app.get("/", (req, res) => {
 });
 
 app.get("/maze", (req, res) => {
-  maze = new Maze(50, 50)
   res.send({
     cells: maze.cells,
     players,
