@@ -3,6 +3,9 @@ import type { Cell } from "./models";
 
 type CellProps = { cell: Cell, col: number, row: number, cellSize: number }
 
+const leftMargin = 20
+const topMargin = 20
+
 const CellDiv = ({ cell, col, row, cellSize }: CellProps): JSX.Element => {
   const clazz = () => {
     let classes = '';
@@ -15,8 +18,8 @@ const CellDiv = ({ cell, col, row, cellSize }: CellProps): JSX.Element => {
   return <div
     className={`cell ${clazz()}`}
     style={{
-      left: `${col * cellSize}px`,
-      top: `${row * cellSize}px`
+      left: `${leftMargin + (col * cellSize)}px`,
+      top: `${topMargin + (row * cellSize)}px`
     }}
   />
 }
