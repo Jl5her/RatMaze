@@ -1,0 +1,7 @@
+POST https://api-ratmaze.jackp.me/move HTTP/1.1
+Content-Type: application/json
+Authorization: bearer example-player
+
+{
+    "direction": "down"
+}
