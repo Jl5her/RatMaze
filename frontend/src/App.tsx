@@ -97,6 +97,17 @@ function App() {
           <PlayerDiv key={player.bearer} player={player} cellSize={cellSize} />
         ))}
       </div>
+      <div id="player-list">
+        <h3>Players</h3>
+        <ul>
+          {players.map((player) => (
+            <li>
+              <div className="ico" style={{ backgroundColor: player.hex }} />
+              <div className="name">{player.bearer}</div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
   );
 }
