@@ -1,0 +1,37 @@
+:root {
+  --black: #444;
+}
+
+.cell {
+  width: 18px;
+  height: 18px;
+  position: fixed;
+  padding: 0;
+  margin: 0;
+  transform: translateX(-50%) translateY(-50%);
+  border: 4px solid transparent;
+
+  &.north {
+    border-top: 2px solid var(--black);
+  }
+
+  &.east {
+    border-right: 2px solid var(--black);
+  }
+  
+  &.west {
+    border-left: 2px solid var(--black);
+  }
+  
+  &.south {
+    border-bottom: 2px solid var(--black);
+  }
+}
+
+.player {
+  position: fixed;
+  border-radius: 100%;
+  width: 12px;
+  height: 12px;
+  transform: translateX(-50%) translateY(-50%);
+}
